@@ -11,12 +11,15 @@ public class Main {
 
         Pelicula pelicula = new Pelicula();
         pelicula.titulo = "El señor de los anillos";
-        pelicula.anioEstreno = 2001;
+        pelicula.fechaEstreno = LocalDate.of(2018,10, 15);
         pelicula.genero = "Fantasía";
         pelicula.calificar(4.7);
 
         Usuario usuario = new Usuario();
         usuario.nombre = "Juan";
+        usuario.fechaRegistro = LocalDateTime.of(2025, 12, 24, 17, 15, 14);
+
+        System.out.println(usuario.fechaRegistro);
 
         usuario.ver(pelicula);
 

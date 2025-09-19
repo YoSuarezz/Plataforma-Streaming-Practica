@@ -2,12 +2,16 @@ package streaming.play.plataforma;
 
 import streaming.play.contenido.Pelicula;
 
-public class Usuario {
-    public String nombre;
-    public String email;
+import java.time.LocalDateTime;
 
-    public void ver(Pelicula pelicula) {
-        System.out.println(nombre + " está viendo...");
-        pelicula.reproducir();
+public class Usuario {
+
+        public String nombre;
+        public String email;
+        public LocalDateTime fechaRegistro;
+
+        public void ver(Pelicula pelicula) {
+            System.out.println(nombre + " está viendo...");
+            pelicula.reproducir();
+        }
     }
-}
