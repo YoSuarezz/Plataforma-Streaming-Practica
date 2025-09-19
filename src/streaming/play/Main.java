@@ -1,5 +1,6 @@
 package streaming.play;
 
+import streaming.play.contenido.Genero;
 import streaming.play.contenido.Pelicula;
 import streaming.play.plataforma.Plataforma;
 import streaming.play.plataforma.Usuario;
@@ -43,7 +44,7 @@ public class Main {
             switch (opcion) {
                 case AGREGAR -> {
                     String nombre = ScannerUtils.capturarTexto("Nombre del contenido");
-                    String genero = ScannerUtils.capturarTexto("Genero del contenido");
+                    Genero genero = ScannerUtils.capturarGenero("Genero del contenido");
                     int duracion = ScannerUtils.capturarNumero("Duracion del contenido");
                     double calificacion = ScannerUtils.capturarDecimal("Calificacion del contenido");
 
@@ -75,7 +76,7 @@ public class Main {
                     }
                 }
                 case BUSCAR_POR_GENERO -> {
-                    String genero = ScannerUtils.capturarTexto("Género a buscar");
+                    Genero genero = ScannerUtils.capturarGenero("Genero del contenido");
                     List<Pelicula> contenidoPorGenero = plataforma.buscarPorGenero(genero);
                     if (!contenidoPorGenero.isEmpty()) {
                         System.out.println("Resultados encontrados:");
@@ -99,10 +100,10 @@ public class Main {
     }
 
         private static void cargarPeliculas(Plataforma plataforma) {
-            plataforma.agregarContenido(new Pelicula("Inception", 148, "Sci-Fi", 4.8));
-            plataforma.agregarContenido(new Pelicula("The Dark Knight", 152, "Action", 4.9));
-            plataforma.agregarContenido(new Pelicula("Interstellar", 169, "Sci-Fi", 4.7));
-            plataforma.agregarContenido(new Pelicula("Parasite", 132, "Thriller", 4.6));
-            plataforma.agregarContenido(new Pelicula("The Godfather", 175, "Crime", 4.9));
+            plataforma.agregarContenido(new Pelicula("Inception", 148, Genero.CIENCIA_FICCION, 4.8));
+            plataforma.agregarContenido(new Pelicula("The Dark Knight", 152, Genero.ACCION, 4.9));
+            plataforma.agregarContenido(new Pelicula("Interstellar", 169, Genero.CIENCIA_FICCION, 4.7));
+            plataforma.agregarContenido(new Pelicula("Parasite", 132, Genero.HORROR, 4.6));
+            plataforma.agregarContenido(new Pelicula("The Godfather", 175, Genero.SUSPENSO, 4.9));
     }
 }
