@@ -15,13 +15,16 @@ public class Main {
     public static final int ELIMINAR = 3;
     public static final int BUSCAR = 4;
     public static final int BUSCAR_POR_GENERO = 5;
-    public static final int SALIR = 6;
+    public static final int VER_POPULARES = 6;
+    public static final int SALIR = 7;
 
     public static void main(String[] args) {
         Plataforma plataforma = new Plataforma(NOMBRE_PLATAFORMA);
         System.out.println(NOMBRE_PLATAFORMA + " v" + VERSION);
 
         cargarPeliculas(plataforma);
+
+        System.out.println("Mas de " + plataforma.getDuracionTotal() + " minutos de contenido.");
 
         while (true) {
             int opcion = ScannerUtils.capturarNumero(
@@ -31,7 +34,8 @@ public class Main {
                             "3. Eliminar contenido\n" +
                             "4. Buscar contenido\n" +
                             "5. Buscar por género\n" +
-                            "6. Salir\n" +
+                            "6. Ver populares\n" +
+                            "7. Salir\n" +
                             "Opción: "
             );
             System.out.println("Opcion seleccionada: " + opcion);
@@ -48,7 +52,8 @@ public class Main {
                 }
                 case MOSTRAR -> {
                     System.out.println("Contenido en " + plataforma.getNombre() + ":");
-                    plataforma.mostrarContenido();
+                    List<String> titulos = plataforma.mostrarContenido();
+                    titulos.forEach(System.out::println);
                 }
                 case ELIMINAR -> {
                     String nombre = ScannerUtils.capturarTexto("Nombre del contenido a eliminar");
@@ -66,7 +71,7 @@ public class Main {
                     if (pelicula != null) {
                         System.out.println("Contenido encontrado:\n" + pelicula.obtenerFichaTecnica());
                     } else {
-                        System.out.println("Contenido no encontrado dentro de" + plataforma.getNombre());
+                        System.out.println("Contenido no encontrado dentro de " + plataforma.getNombre());
                     }
                 }
                 case BUSCAR_POR_GENERO -> {
@@ -77,6 +82,15 @@ public class Main {
                         contenidoPorGenero.forEach(pelicula -> System.out.println("- " + pelicula.obtenerFichaTecnica()));
                     } else {
                         System.out.println("No se encontraron resultados para el género: " + genero);
+                    }
+                }
+                case VER_POPULARES -> {
+                    List<Pelicula> populares = plataforma.getPeliculasPopulares();
+                    if (!populares.isEmpty()) {
+                        System.out.println("Películas populares:");
+                        populares.forEach(pelicula -> System.out.println("- " + pelicula.obtenerFichaTecnica()));
+                    } else {
+                        System.out.println("No hay películas populares en este momento.");
                     }
                 }
                 case SALIR -> System.exit(0);

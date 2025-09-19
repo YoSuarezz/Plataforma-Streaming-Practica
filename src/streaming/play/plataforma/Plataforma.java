@@ -18,8 +18,8 @@ public class Plataforma {
         this.contenido.add(pelicula);
     }
 
-    public void mostrarContenido() {
-        contenido.forEach(contenido -> System.out.println(contenido.getTitulo()));
+    public List<String> mostrarContenido() {
+        return contenido.stream().map(Pelicula::getTitulo).toList();
     }
 
     public void eliminarContenido(Pelicula pelicula) {
@@ -36,6 +36,18 @@ public class Plataforma {
     public List<Pelicula> buscarPorGenero(String genero) {
         return contenido.stream()
                 .filter(contenido -> contenido.getGenero().equalsIgnoreCase(genero))
+                .toList();
+    }
+
+    public int getDuracionTotal() {
+        return contenido.stream()
+                .mapToInt(Pelicula::getDuracion)
+                .sum();
+    }
+
+    public List<Pelicula> getPeliculasPopulares() {
+        return contenido.stream()
+                .filter(Pelicula::esPopular)
                 .toList();
     }
 
