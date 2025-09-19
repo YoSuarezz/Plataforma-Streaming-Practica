@@ -3,6 +3,8 @@ package streaming.play;
 import streaming.play.contenido.Pelicula;
 import streaming.play.plataforma.Usuario;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
@@ -14,6 +16,16 @@ public class Main {
         pelicula.fechaEstreno = LocalDate.of(2018,10, 15);
         pelicula.genero = "Fantasía";
         pelicula.calificar(4.7);
+
+        pelicula.duracion = 120;
+
+        long duracionLong = pelicula.duracion;
+        int calificacionInt = (int) pelicula.calificacion;
+        int numeroDePremios = (int) Long.parseLong("25000000000");
+
+        System.out.println("Duracion Long: " + duracionLong);
+        System.out.println("Calificacion Int: " + calificacionInt);
+        System.out.println("Numero de premios: " + numeroDePremios);
 
         Usuario usuario = new Usuario();
         usuario.nombre = "Juan";
