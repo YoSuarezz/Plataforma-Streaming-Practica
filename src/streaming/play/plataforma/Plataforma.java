@@ -28,6 +28,15 @@ public class Plataforma {
         this.contenido.remove(pelicula);
     }
 
+    public Pelicula buscarContenido(String nombre) {
+        for (Pelicula pelicula : contenido) {
+            if (pelicula.getTitulo().equalsIgnoreCase(nombre)) {
+                return pelicula;
+            }
+        }
+        return null;
+    }
+
     public String getNombre() {
         return nombre;
     }
