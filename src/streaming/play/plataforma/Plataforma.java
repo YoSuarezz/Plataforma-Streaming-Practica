@@ -2,6 +2,7 @@ package streaming.play.plataforma;
 
 import streaming.play.contenido.Genero;
 import streaming.play.contenido.Pelicula;
+import streaming.play.contenido.ResumenContenido;
 import streaming.play.excepcion.PeliculaExistenteException;
 
 import java.util.ArrayList;
@@ -25,8 +26,19 @@ public class Plataforma {
         this.contenido.add(pelicula);
     }
 
-    public List<String> mostrarContenido() {
-        return contenido.stream().map(Pelicula::getTitulo).toList();
+    public List<String> getTitulos() {
+        return contenido.stream()
+                .map(Pelicula::getTitulo)
+                .toList();
+    }
+
+    public List<ResumenContenido> getResumenContenido() {
+        return contenido.stream()
+                .map(pelicula -> new ResumenContenido(
+                        pelicula.getTitulo(),
+                        pelicula.getDuracion(),
+                        pelicula.getGenero()))
+                .toList();
     }
 
     public void eliminarContenido(Pelicula pelicula) {

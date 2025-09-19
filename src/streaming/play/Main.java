@@ -2,9 +2,9 @@ package streaming.play;
 
 import streaming.play.contenido.Genero;
 import streaming.play.contenido.Pelicula;
+import streaming.play.contenido.ResumenContenido;
 import streaming.play.excepcion.PeliculaExistenteException;
 import streaming.play.plataforma.Plataforma;
-import streaming.play.plataforma.Usuario;
 import streaming.play.util.ScannerUtils;
 
 import java.util.List;
@@ -60,8 +60,12 @@ public class Main {
                 }
                 case MOSTRAR -> {
                     System.out.println("Contenido en " + plataforma.getNombre() + ":");
-                    List<String> titulos = plataforma.mostrarContenido();
-                    titulos.forEach(System.out::println);
+                    List<ResumenContenido> titulos = plataforma.getResumenContenido();
+                    titulos.forEach(contenido -> System.out.println("- " + contenido.titulo() +
+                            " (" + contenido.duracion() + " min) - " + contenido.genero()));
+                    if (titulos.isEmpty()) {
+                        System.out.println("No hay contenido disponible.");
+                    }
                 }
                 case ELIMINAR -> {
                     String nombre = ScannerUtils.capturarTexto("Nombre del contenido a eliminar");
