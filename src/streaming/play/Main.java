@@ -5,6 +5,8 @@ import streaming.play.plataforma.Plataforma;
 import streaming.play.plataforma.Usuario;
 import streaming.play.util.ScannerUtils;
 
+import java.util.List;
+
 public class Main {
     public static final String NOMBRE_PLATAFORMA = "STREAMING PLAY 🍿";
     public static final String VERSION = "1.0.0";
@@ -12,7 +14,8 @@ public class Main {
     public static final int MOSTRAR = 2;
     public static final int ELIMINAR = 3;
     public static final int BUSCAR = 4;
-    public static final int SALIR = 5;
+    public static final int BUSCAR_POR_GENERO = 5;
+    public static final int SALIR = 6;
 
     public static void main(String[] args) {
         Plataforma plataforma = new Plataforma(NOMBRE_PLATAFORMA);
@@ -27,7 +30,8 @@ public class Main {
                             "2. Mostrar contenido\n" +
                             "3. Eliminar contenido\n" +
                             "4. Buscar contenido\n" +
-                            "5. Salir\n" +
+                            "5. Buscar por género\n" +
+                            "6. Salir\n" +
                             "Opción: "
             );
             System.out.println("Opcion seleccionada: " + opcion);
@@ -63,6 +67,16 @@ public class Main {
                         System.out.println("Contenido encontrado:\n" + pelicula.obtenerFichaTecnica());
                     } else {
                         System.out.println("Contenido no encontrado dentro de" + plataforma.getNombre());
+                    }
+                }
+                case BUSCAR_POR_GENERO -> {
+                    String genero = ScannerUtils.capturarTexto("Género a buscar");
+                    List<Pelicula> contenidoPorGenero = plataforma.buscarPorGenero(genero);
+                    if (!contenidoPorGenero.isEmpty()) {
+                        System.out.println("Resultados encontrados:");
+                        contenidoPorGenero.forEach(pelicula -> System.out.println("- " + pelicula.obtenerFichaTecnica()));
+                    } else {
+                        System.out.println("No se encontraron resultados para el género: " + genero);
                     }
                 }
                 case SALIR -> System.exit(0);
