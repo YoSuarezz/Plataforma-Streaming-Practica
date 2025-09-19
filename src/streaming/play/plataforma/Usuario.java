@@ -10,7 +10,13 @@ public class Usuario {
         public String email;
         public LocalDateTime fechaRegistro;
 
-        public void ver(Pelicula pelicula) {
+    public Usuario(String nombre, String email) {
+        this.nombre = nombre;
+        this.email = email;
+        this.fechaRegistro = LocalDateTime.now();
+    }
+
+    public void ver(Pelicula pelicula) {
             System.out.println(nombre + " está viendo...");
             pelicula.reproducir();
         }
