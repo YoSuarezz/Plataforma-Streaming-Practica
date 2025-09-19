@@ -2,6 +2,7 @@ package streaming.play;
 
 import streaming.play.contenido.Genero;
 import streaming.play.contenido.Pelicula;
+import streaming.play.excepcion.PeliculaExistenteException;
 import streaming.play.plataforma.Plataforma;
 import streaming.play.plataforma.Usuario;
 import streaming.play.util.ScannerUtils;
@@ -48,6 +49,12 @@ public class Main {
                     int duracion = ScannerUtils.capturarNumero("Duracion del contenido");
                     double calificacion = ScannerUtils.capturarDecimal("Calificacion del contenido");
 
+                    try {
+                        plataforma.agregarContenido(new Pelicula(nombre, duracion, genero, calificacion));
+
+                    }catch (PeliculaExistenteException e) {
+                        System.out.println(e.getMessage());
+                    }
                     plataforma.agregarContenido(new Pelicula(nombre, duracion, genero, calificacion));
                     System.out.println("Contenido agregado: " + nombre);
                 }

@@ -2,6 +2,7 @@ package streaming.play.plataforma;
 
 import streaming.play.contenido.Genero;
 import streaming.play.contenido.Pelicula;
+import streaming.play.excepcion.PeliculaExistenteException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,11 @@ public class Plataforma {
     }
 
     public void agregarContenido(Pelicula pelicula) {
+        Pelicula contenido = this.buscarContenido(pelicula.getTitulo());
+
+        if (contenido != null) {
+            throw new PeliculaExistenteException(pelicula.getTitulo());
+        }
         this.contenido.add(pelicula);
     }
 
