@@ -18,7 +18,8 @@ public class Main {
     public static final int BUSCAR = 4;
     public static final int BUSCAR_POR_GENERO = 5;
     public static final int VER_POPULARES = 6;
-    public static final int SALIR = 7;
+    public static final int REPRODUCIR = 7;
+    public static final int SALIR = 8;
 
     public static void main(String[] args) {
         Plataforma plataforma = new Plataforma(NOMBRE_PLATAFORMA);
@@ -37,7 +38,8 @@ public class Main {
                             "4. Buscar contenido\n" +
                             "5. Buscar por género\n" +
                             "6. Ver populares\n" +
-                            "7. Salir\n" +
+                            "7. Reproducir\n" +
+                            "8. Salir\n" +
                             "Opción: "
             );
             System.out.println("Opcion seleccionada: " + opcion);
@@ -103,6 +105,16 @@ public class Main {
                         populares.forEach(pelicula -> System.out.println("- " + pelicula.obtenerFichaTecnica()));
                     } else {
                         System.out.println("No hay películas populares en este momento.");
+                    }
+                }
+                case REPRODUCIR -> {
+                    String nombre = ScannerUtils.capturarTexto("Nombre del contenido a reproducir");
+                    Pelicula contenido = plataforma.buscarContenido(nombre);
+
+                    if (contenido != null) {
+                        plataforma.reproducir(contenido);
+                    } else {
+                        System.out.println(nombre + " no existe.");
                     }
                 }
                 case SALIR -> System.exit(0);
