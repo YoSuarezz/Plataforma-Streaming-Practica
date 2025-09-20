@@ -9,9 +9,10 @@ public enum Genero {
     ROMANCE,
     CIENCIA_FICCION,
     DOCUMENTAL,
-    ANIMACION,
+    ANIMADA,
     AVENTURA,
     SUSPENSO,
     MUSICAL,
-    HISTORICO
+    HISTORICO,
+    TERROR,
 }

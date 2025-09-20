@@ -5,8 +5,13 @@ import streaming.play.contenido.Pelicula;
 import streaming.play.contenido.ResumenContenido;
 import streaming.play.excepcion.PeliculaExistenteException;
 import streaming.play.plataforma.Plataforma;
+import streaming.play.util.FileUtils;
 import streaming.play.util.ScannerUtils;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Main {
@@ -123,10 +128,6 @@ public class Main {
     }
 
         private static void cargarPeliculas(Plataforma plataforma) {
-            plataforma.agregarContenido(new Pelicula("Inception", 148, Genero.CIENCIA_FICCION, 4.8));
-            plataforma.agregarContenido(new Pelicula("The Dark Knight", 152, Genero.ACCION, 4.9));
-            plataforma.agregarContenido(new Pelicula("Interstellar", 169, Genero.CIENCIA_FICCION, 4.7));
-            plataforma.agregarContenido(new Pelicula("Parasite", 132, Genero.HORROR, 4.6));
-            plataforma.agregarContenido(new Pelicula("The Godfather", 175, Genero.SUSPENSO, 4.9));
+            plataforma.getContenido().addAll(FileUtils.leerContenido());
     }
 }
