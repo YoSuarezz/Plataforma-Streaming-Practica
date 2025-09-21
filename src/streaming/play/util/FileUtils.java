@@ -7,6 +7,7 @@ import streaming.play.excepcion.PeliculaExistenteException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,23 @@ public class FileUtils {
 
     public static final String SEPARADOR = "\\|";
     public static final String FILE_PATH = "contenido.txt";
+
+    public static void escribirContenido(Pelicula contenido){
+        String linea = String.join(SEPARADOR,
+                contenido.getTitulo(),
+                String.valueOf(contenido.getDuracion()),
+                contenido.getGenero().name(),
+                String.valueOf(contenido.getCalificacion()),
+                contenido.getFechaEstreno().toString()
+        );
+        try{
+            Files.writeString(Paths.get(FILE_PATH),
+                linea + System.lineSeparator(),
+                StandardOpenOption.CREATE,
+                StandardOpenOption.APPEND);
+        }catch (IOException e){
+            System.out.println("No se pudo guardar el contenido en el archivo.");}
+        }
 
     public static List<Pelicula> leerContenido() {
         List<Pelicula> contenidoDesdeArchivo = new ArrayList<>();

@@ -4,6 +4,7 @@ import streaming.play.contenido.Genero;
 import streaming.play.contenido.Pelicula;
 import streaming.play.contenido.ResumenContenido;
 import streaming.play.excepcion.PeliculaExistenteException;
+import streaming.play.util.FileUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,8 @@ public class Plataforma {
         if (contenido != null) {
             throw new PeliculaExistenteException(pelicula.getTitulo());
         }
+
+        FileUtils.escribirContenido(pelicula);
         this.contenido.add(pelicula);
     }
 

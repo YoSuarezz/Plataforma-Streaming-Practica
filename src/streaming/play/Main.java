@@ -47,7 +47,6 @@ public class Main {
                             "8. Salir\n" +
                             "Opción: "
             );
-            System.out.println("Opcion seleccionada: " + opcion);
 
             switch (opcion) {
                 case AGREGAR -> {
@@ -58,11 +57,9 @@ public class Main {
 
                     try {
                         plataforma.agregarContenido(new Pelicula(nombre, duracion, genero, calificacion));
-
-                    }catch (PeliculaExistenteException e) {
+                    } catch (PeliculaExistenteException e) {
                         System.out.println(e.getMessage());
                     }
-                    plataforma.agregarContenido(new Pelicula(nombre, duracion, genero, calificacion));
                     System.out.println("Contenido agregado: " + nombre);
                 }
                 case MOSTRAR -> {
