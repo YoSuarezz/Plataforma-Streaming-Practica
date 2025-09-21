@@ -1,7 +1,7 @@
 package streaming.play.util;
 
+import streaming.play.contenido.Contenido;
 import streaming.play.contenido.Genero;
-import streaming.play.contenido.Pelicula;
 import streaming.play.excepcion.PeliculaExistenteException;
 
 import java.io.IOException;
@@ -14,10 +14,11 @@ import java.util.List;
 
 public class FileUtils {
 
-    public static final String SEPARADOR = "\\|";
+    public static final String SEPARADOR = "|"; // Para escribir
+    public static final String SPLIT_SEPARADOR = "\\|"; // Para leer
     public static final String FILE_PATH = "contenido.txt";
 
-    public static void escribirContenido(Pelicula contenido){
+    public static void escribirContenido(Contenido contenido){
         String linea = String.join(SEPARADOR,
                 contenido.getTitulo(),
                 String.valueOf(contenido.getDuracion()),
@@ -34,14 +35,14 @@ public class FileUtils {
             System.out.println("No se pudo guardar el contenido en el archivo.");}
         }
 
-    public static List<Pelicula> leerContenido() {
-        List<Pelicula> contenidoDesdeArchivo = new ArrayList<>();
+    public static List<Contenido> leerContenido() {
+        List<Contenido> contenidoDesdeArchivo = new ArrayList<>();
 
         try {
             List<String> lineas = Files.readAllLines(Paths.get(FILE_PATH));
 
             lineas.forEach(linea -> {
-                String[] partes = linea.split(SEPARADOR);
+                String[] partes = linea.split(SPLIT_SEPARADOR);
                 if (partes.length == 5) {
                     String titulo = partes[0].trim();
                     int duracion = Integer.parseInt(partes[1].trim());
@@ -50,9 +51,9 @@ public class FileUtils {
                     LocalDate fecha = LocalDate.parse(partes[4].trim());
 
                     try {
-                        Pelicula pelicula = new Pelicula(titulo, duracion, genero, calificacion);
-                        pelicula.setFechaEstreno(fecha);
-                        contenidoDesdeArchivo.add(pelicula);
+                        Contenido contenido = new Contenido(titulo, duracion, genero, calificacion);
+                        contenido.setFechaEstreno(fecha);
+                        contenidoDesdeArchivo.add(contenido);
                     } catch (PeliculaExistenteException e) {
                         System.out.println(e.getMessage());
                     }
