@@ -1,8 +1,6 @@
 package streaming.play.plataforma;
 
-import streaming.play.contenido.Contenido;
-import streaming.play.contenido.Genero;
-import streaming.play.contenido.ResumenContenido;
+import streaming.play.contenido.*;
 import streaming.play.excepcion.PeliculaExistenteException;
 import streaming.play.util.FileUtils;
 
@@ -88,6 +86,20 @@ public class Plataforma {
     public List<Contenido> getPeliculasPopulares() {
         return contenido.stream()
                 .filter(Contenido::esPopular)
+                .toList();
+    }
+
+    public List<Pelicula> getPeliculas() {
+        return contenido.stream()
+                .filter(contenido -> contenido instanceof Pelicula)
+                .map(contenido -> (Pelicula) contenido)
+                .toList();
+    }
+
+    public List<Documental> getDocumentales() {
+        return contenido.stream()
+                .filter(contenido -> contenido instanceof Documental)
+                .map(contenido -> (Documental) contenido)
                 .toList();
     }
 

@@ -18,7 +18,8 @@ public class Main {
     public static final int BUSCAR_POR_GENERO = 5;
     public static final int VER_POPULARES = 6;
     public static final int REPRODUCIR = 7;
-    public static final int SALIR = 8;
+    public static final int BUSCAR_POR_TIPO = 8;
+    public static final int SALIR = 9;
 
     public static void main(String[] args) {
         Plataforma plataforma = new Plataforma(NOMBRE_PLATAFORMA);
@@ -38,7 +39,8 @@ public class Main {
                             "5. Buscar por género\n" +
                             "6. Ver populares\n" +
                             "7. Reproducir\n" +
-                            "8. Salir\n" +
+                            "8. Buscar por tipo de contenido\n" +
+                            "9. Salir\n" +
                             "Opción: "
             );
 
@@ -121,6 +123,21 @@ public class Main {
                         plataforma.reproducir(contenido);
                     } else {
                         System.out.println(nombre + " no existe.");
+                    }
+                }
+                case BUSCAR_POR_TIPO -> {
+                    int tipoDeContenido = ScannerUtils.capturarNumero(
+                            "Seleccione el tipo de contenido a buscar:\n" +
+                                    "1. Película\n" +
+                                    "2. Documental\n" +
+                                    "Opción: "
+                    );
+                    if (tipoDeContenido == 1) {
+                        List<Pelicula> peliculas = plataforma.getPeliculas();
+                        peliculas.forEach(pelicula ->  System.out.println("- " + pelicula.obtenerFichaTecnica()));
+                    }else {
+                        List<Documental> documentales = plataforma.getDocumentales();
+                        documentales.forEach(documental ->  System.out.println("- " + documental.obtenerFichaTecnica()));
                     }
                 }
                 case SALIR -> System.exit(0);

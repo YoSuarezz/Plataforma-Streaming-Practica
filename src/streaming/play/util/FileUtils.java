@@ -1,7 +1,9 @@
 package streaming.play.util;
 
 import streaming.play.contenido.Contenido;
+import streaming.play.contenido.Documental;
 import streaming.play.contenido.Genero;
+import streaming.play.contenido.Pelicula;
 import streaming.play.excepcion.PeliculaExistenteException;
 
 import java.io.IOException;
@@ -26,6 +28,15 @@ public class FileUtils {
                 String.valueOf(contenido.getCalificacion()),
                 contenido.getFechaEstreno().toString()
         );
+
+        String lineaFinal;
+
+        if(contenido instanceof Documental docu) {
+            lineaFinal = "Documental" + SEPARADOR + linea + SEPARADOR + docu.getNarrador();
+        } else {
+            lineaFinal = "Pelicula" + SEPARADOR + linea;
+        }
+
         try{
             Files.writeString(Paths.get(FILE_PATH),
                 linea + System.lineSeparator(),
@@ -43,15 +54,27 @@ public class FileUtils {
 
             lineas.forEach(linea -> {
                 String[] partes = linea.split(SPLIT_SEPARADOR);
-                if (partes.length == 5) {
-                    String titulo = partes[0].trim();
-                    int duracion = Integer.parseInt(partes[1].trim());
-                    Genero genero = Genero.valueOf(partes[2].trim().toUpperCase());
-                    double calificacion = partes[3].isBlank() ? 0 : Double.parseDouble(partes[3].trim());
-                    LocalDate fecha = LocalDate.parse(partes[4].trim());
+
+                String tipoContenido = partes[0];
+
+            if (("Pelicula".equals(tipoContenido) && partes.length == 6) ||
+                ("DOCUMENTAL".equals(tipoContenido) && partes.length == 7)) {
+                    String titulo = partes[1];
+                    int duracion = Integer.parseInt(partes[2]);
+                    Genero genero = Genero.valueOf(partes[3].toUpperCase());
+                    double calificacion = partes[4].isBlank() ? 0 : Double.parseDouble(partes[4]);
+                    LocalDate fecha = LocalDate.parse(partes[5]);
 
                     try {
-                        Contenido contenido = new Contenido(titulo, duracion, genero, calificacion);
+                        Contenido contenido;
+
+                        if ("Pelicula".equals(tipoContenido)) {
+                            contenido = new Pelicula(titulo, duracion, genero, calificacion);
+                        } else {
+                            String narrador = partes[6];
+                            contenido = new Documental(titulo, duracion, genero, calificacion, narrador);
+                        }
+
                         contenido.setFechaEstreno(fecha);
                         contenidoDesdeArchivo.add(contenido);
                     } catch (PeliculaExistenteException e) {
