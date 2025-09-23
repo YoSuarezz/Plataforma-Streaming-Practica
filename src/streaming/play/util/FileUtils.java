@@ -57,7 +57,7 @@ public class FileUtils {
 
                 String tipoContenido = partes[0];
 
-            if (("Pelicula".equals(tipoContenido) && partes.length == 6) ||
+            if (("PELICULA".equals(tipoContenido) && partes.length == 6) ||
                 ("DOCUMENTAL".equals(tipoContenido) && partes.length == 7)) {
                     String titulo = partes[1];
                     int duracion = Integer.parseInt(partes[2]);
@@ -68,7 +68,7 @@ public class FileUtils {
                     try {
                         Contenido contenido;
 
-                        if ("Pelicula".equals(tipoContenido)) {
+                        if ("PELICULA".equals(tipoContenido)) {
                             contenido = new Pelicula(titulo, duracion, genero, calificacion);
                         } else {
                             String narrador = partes[6];
