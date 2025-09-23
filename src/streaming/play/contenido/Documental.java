@@ -1,6 +1,6 @@
 package streaming.play.contenido;
 
-public class Documental extends Contenido {
+public class Documental extends Contenido implements Promocionable {
     private String narrador;
 
     public Documental(String titulo, int duracion, Genero genero, double calificacion, String narrador) {
@@ -25,6 +25,13 @@ public class Documental extends Contenido {
                "Calificación: " + getCalificacion() + "\n" +
                "Fecha de Estreno: " + getFechaEstreno() + "\n" +
                "Narrador: " + getNarrador();
+    }
+
+    @Override
+    public String promocionar() {
+        return "¡No te pierdas el documental "
+                + getTitulo() + " narrado por "
+                + getNarrador() + "!";
     }
 
     public String getNarrador() {
